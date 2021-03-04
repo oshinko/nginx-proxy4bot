@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  nginx:
+    image: "nginx:alpine"
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./human-contents:/var/www/nginx-proxy4bot/human-contents
+    ports:
+      - "80:80"
+
+  bot-server:
+    build:
+      context: ./bot-server
+    volumes:
+      - ./bot-server:/var/www/nginx-proxy4bot/bot-server
+    expose:
+      - "8080"
